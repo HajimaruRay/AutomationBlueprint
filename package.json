@@ -1,0 +1,20 @@
+{
+  "name": "blueprint",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/mssql": "^12.3.0",
+    "@types/node": "^26.4.0"
+  },
+  "dependencies": {
+    "mssql": "^12.7.0",
+    "mysql2": "^3.24.2"
+  }
+}
