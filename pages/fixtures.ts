@@ -3,6 +3,7 @@ import {test as base } from '@playwright/test';
 import { endpoints } from '../config/endpoint.ts';
 import { DemoApi } from '../utils/api/demoApi.ts';
 import { demoDatabase } from '../utils/database/demoDatabase.ts';
+import { LandingPage } from './landing.page.ts';
 
 const testData = require(`../data/${ENV}/data.json`);
 const userInfo = require(`../data/${ENV}/userInfo.json`);
@@ -16,6 +17,7 @@ export const test = base.extend<{
     userInfo: userInfo;
     demoApi: DemoApi;
     demoDatabase: demoDatabase;
+    landingPage:  LandingPage;
 }>({
     testData: async ({}, use) => {
         await use(testData);
@@ -31,5 +33,8 @@ export const test = base.extend<{
     },
     demoDatabase: async ({request, page}, use) => {
         await use(new demoDatabase(request, page));
+    },
+    landingPage: async ({page}, use) => {
+        await use(new LandingPage(page));
     }
 })
