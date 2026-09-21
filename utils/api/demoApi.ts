@@ -33,9 +33,29 @@ export class DemoApi {
 
     @step('Health Check')
     async healthCheck() {
-        const response = await this.request.get(baseurl.projectBaseUrl[ENV] + endpoints.healthCheck);
+        const response = await this.request.get(`${baseurl.apiBaseUrl[ENV]}${endpoints.api.healthCheck}`);
 
         await expect(response).toBeOK();
-        return response.json();
+        const data = await response.json();
+        console.log('Health Check Data:', JSON.stringify(data));
+    }   
+
+    @step('Get login response')
+    async getLoginResponse(clickAction: () => Promise<void>) {
+        const [response] = await Promise.all([
+            this.page.waitForResponse(
+                (res) =>
+                    res.request().url().includes('/api/login') &&
+                    res.request().method() === 'POST'
+            ),
+            clickAction()
+        ]);
+
+        if (response.status() === 200) {
+            return await response.json();
+        }
+
+        console.log('Login Failed');
+        throw new Error(`Login request failed with status: ${response.status()}`);
     }
 }

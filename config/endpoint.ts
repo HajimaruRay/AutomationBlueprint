@@ -1,4 +1,6 @@
 export const endpoints = {
-    healthCheck: '/v2.0/health-check',
-    landingPage: '/index.php',
+    api: {
+        healthCheck: '/api/v1.0/healthCheck',
+        login: '/api/v1.0/login'
+    },
 }

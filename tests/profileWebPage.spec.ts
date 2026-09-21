@@ -1,4 +1,5 @@
 import { test } from '../pages/fixtures.ts';
+import { LoginPage } from '../pages/login.Page.ts';
 const ENV = process.env.ENV as string;
 let transactionId!: string;
 
@@ -7,7 +8,7 @@ test.describe('Demo Test', () => {
         // const healthCheckResult = await demoApi.healthCheck();
     });
 
-    test('Get Booking Transaction Details',
+    test('Go to Profile Website and Click Login Button',
         { tag: '@e2e' },
         async (
             { 
@@ -15,10 +16,18 @@ test.describe('Demo Test', () => {
                 demoApi, 
                 demoDatabase,
                 landingPage,
+                loginPage
             }
         ) => {
+            await demoApi.healthCheck();
             await landingPage.goToProfileWebsite();
-            await landingPage.verifyLandingPageLoaded();
-            await landingPage.clickLoginButton();
+            await landingPage.clickLoginMenuButton();
+            await loginPage.enterUsername(testData.login.username);
+            await loginPage.enterPassword(testData.login.password);
+            const loginResponse = await demoApi.getLoginResponse(async () => {
+                await loginPage.clickLoginButton();
+            });
+
+            console.log('Login Response:', loginResponse);
         });
 });

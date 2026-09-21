@@ -1,3 +1,6 @@
 {
-    "bookingId": "12345"
+    "login": {
+        "username": "admin",
+        "password": "admin"
+    }
 }

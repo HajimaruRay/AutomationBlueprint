@@ -7,15 +7,13 @@ const ENV = process.env.ENV as string;
 export class LandingPage {
     page: Page;
     pageHeader: Locator;
-    button: Locator;
     homeButton: Locator;
     loginButton: Locator;
     constructor(page: Page) {
         this.page = page;
-        this.pageHeader = page.locator('h1').getByText("I'm Chonlatree ");
-        this.button = page.locator('div.button');
-        this.homeButton = page.getByTestId('home-button-nav-bar');
-        this.loginButton = page.getByTestId('login-button');
+        this.pageHeader = page.getByTestId('home-heading');
+        this.homeButton = page.getByTestId('');
+        this.loginButton = page.getByTestId('navbar-link-login');
     }
 
     @step("Go to landing page")
@@ -26,18 +24,8 @@ export class LandingPage {
 
     @step("Go to profile website")
     async goToProfileWebsite() {
-        await this.page.goto(`${baseurl.profileWebsiteBaseUrl[ENV]}`);
-        await this.page.waitForURL(`${baseurl.profileWebsiteBaseUrl[ENV]}`);
-    }
-
-    @step('Verify landing page is loaded')
-    async verifyLandingPageLoaded() {
-        await expect(this.pageHeader).toBeVisible();
-    }
-
-    @step('Click button')
-    async clickButton() {
-        await this.button.click();
+        await this.page.goto(`${baseurl.webBaseUrl[ENV]}`);
+        await this.page.waitForURL(`${baseurl.webBaseUrl[ENV]}`);
     }
 
     @step('Click home button')
@@ -46,8 +34,8 @@ export class LandingPage {
         await this.homeButton.click();
     }
 
-    @step('Click login button')
-    async clickLoginButton() {
+    @step('Click login menu button')
+    async clickLoginMenuButton() {
         await expect(this.loginButton).toBeVisible();
         await this.loginButton.click();
     }

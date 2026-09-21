@@ -4,6 +4,7 @@ import { endpoints } from '../config/endpoint.ts';
 import { DemoApi } from '../utils/api/demoApi.ts';
 import { demoDatabase } from '../utils/database/demoDatabase.ts';
 import { LandingPage } from './landing.page.ts';
+import { LoginPage } from './login.Page.ts';
 
 const testData = require(`../data/${ENV}/data.json`);
 const userInfo = require(`../data/${ENV}/userInfo.json`);
@@ -18,6 +19,7 @@ export const test = base.extend<{
     demoApi: DemoApi;
     demoDatabase: demoDatabase;
     landingPage:  LandingPage;
+    loginPage: LoginPage;
 }>({
     testData: async ({}, use) => {
         await use(testData);
@@ -36,5 +38,8 @@ export const test = base.extend<{
     },
     landingPage: async ({page}, use) => {
         await use(new LandingPage(page));
+    },
+    loginPage: async ({page}, use) => {
+        await use(new LoginPage(page));
     }
 })
